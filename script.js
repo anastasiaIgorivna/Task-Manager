@@ -28,13 +28,28 @@ function addTask() {
 
 function createTaskElement(task, index) {
     let li = document.createElement("li");
-    li.innerHTML = `
-        <span class="${task.completed ? 'completed' : ''}">${task.text}</span>
-        <button onclick="toggleTask(${index})">✅</button>
-        <button onclick="deleteTask(${index})">❌</button>
-    `;
+    let span = document.createElement("span");
+    span.textContent = task.text;
+    
+    if (task.completed) {
+        span.classList.add("completed");
+    }
+
+    let completeBtn = document.createElement("button");
+    completeBtn.textContent = "✅";
+    completeBtn.addEventListener("click", () => toggleTask(index));
+
+    let deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "❌";
+    deleteBtn.addEventListener("click", () => deleteTask(index));
+
+    li.appendChild(span);
+    li.appendChild(completeBtn);
+    li.appendChild(deleteBtn);
+
     document.getElementById("taskList").appendChild(li);
 }
+
 
 function toggleTask(index) {
     tasks[index].completed = !tasks[index].completed;
