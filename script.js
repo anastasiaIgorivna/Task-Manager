@@ -11,9 +11,18 @@ function saveTasks() {
 }
 
 function loadTasks() {
-    document.getElementById("taskList").innerHTML = "";
+    let taskList = document.getElementById("taskList");
+    
+    // Отримуємо існуючі завдання, щоб не очищати весь список
+    let existingTasks = taskList.children.length;
+    
+    // Якщо кількість змін незначна, оновлюємо лише змінені елементи
+    if (existingTasks === tasks.length) return;
+    
+    taskList.innerHTML = "";
     tasks.forEach((task, index) => createTaskElement(task, index));
 }
+
 
 function addTask() {
     let taskInput = document.getElementById("taskInput");
