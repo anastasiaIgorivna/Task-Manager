@@ -81,12 +81,17 @@ function showCompleted() {
     renderFiltered(filtered);
 }
 
-function showPending() {
-    let filtered = tasks.filter(task => !task.completed);
-    renderFiltered(filtered);
+function filterTasks(condition) {
+    let filtered = tasks.filter(condition);
+    document.getElementById("taskList").innerHTML = "";
+    filtered.forEach((task, index) => createTaskElement(task, index));
 }
 
-function renderFiltered(filteredTasks) {
-    document.getElementById("taskList").innerHTML = "";
-    filteredTasks.forEach((task, index) => createTaskElement(task, index));
+function showCompleted() {
+    filterTasks(task => task.completed);
 }
+
+function showPending() {
+    filterTasks(task => !task.completed);
+}
+
